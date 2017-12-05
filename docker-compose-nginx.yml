@@ -1,0 +1,19 @@
+nginx:
+    image: nginx:stable
+    ports:
+        #- "80:80"
+        #- "443:443"
+        - "443:443"
+        - "8443:8443"
+    volumes:
+        - ./appui/:/usr/share/nginx/html/myapp
+        - ../ui/conf/nginx.conf:/etc/nginx/nginx.conf
+        - ../ui/conf/certs:/etc/nginx/certs
+        #- ../ui/conf/conf.d:/etc/nginx/conf.d
+        - ./appui/conf/conf.d/myapp.conf.docker:/etc/nginx/conf.d/myapp.conf
+        - ./appui/conf/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+        - ../ui/conf/conf.d/gzip.conf:/etc/nginx/conf.d/gzip.conf
+        - ../ui/conf/conf.d/location_params:/etc/nginx/conf.d/location_params
+        
+    extra_hosts:
+        - "myappapp:172.20.123.1"
